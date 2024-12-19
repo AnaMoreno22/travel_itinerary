@@ -1,0 +1,74 @@
+version: "3"
+services:
+  # travel_itinerary:
+  #   container_name: travel_itinerary
+  #   environment:
+  #     - BUNDLE_PATH=/gems
+  #     - BUNDLE_FROZEN=false
+  #   build:
+  #     context: ../
+  #   command: >
+  #     bundle install && bundle exec rails s -p 3002 -b '0.0.0.0'
+  #   ports:
+  #     - "3002:3002"
+  #   volumes:
+  #     - bundle_data222:/bundle
+  #     - ../:/app
+
+  # travel_itinerary2:
+  #   container_name: travel_itinerary
+  #   build:
+  #     context: ../../travel_itinerary
+  #   environment:
+  #     - BUNDLE_PATH=/bundle
+  #     - BUNDLE_FROZEN=false
+  #   ports:
+  #     - "3002:3002"
+  #   volumes:
+  #     - "../../travel_itinerary:/app"
+  #   depends_on:
+  #     - postgres
+  #   command: >
+  #     bash -c "bundle install && bin/rails db:create db:migrate && bin/rails s -b '0.0.0.0'"
+
+  travel_itinerary:
+    container_name: travel_itinerary
+    image: 172.16.100.105:5000/travel_itinerary:latest
+    environment:
+      RAILS_ENV: development
+      NODE_DB_USER: pguser
+      NODE_DB_PASSWORD: pguserpwd
+      NODE_DB_HOST: postgres
+    build:
+      context: ../../travel_itinerary
+      dockerfile: Dockerfile
+    tty: true
+    command: rails s -b '0.0.0.0' -p 3030
+    ports:
+      - "3030:3030"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    volumes:
+      - travel_itinerary:/bundle
+      - ../../travel_itinerary:/app
+      - travel_itinerary:/app/assets/builds/tailwind.css
+
+
+  postgres:
+    image: postgres:17-alpine3.21
+    container_name: travel_itinerary_postgres
+    hostname: postgres
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpwd
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    # networks:
+    #   - travel_itinerary_network
+    restart: unless-stopped
+volumes:
+  travel_itinerary: {}
