@@ -26,13 +26,13 @@ ENV RAILS_ENV="development" \
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
-RUN gem install foreman
+# RUN gem install foreman
 
 # Copy application code
 COPY . .
 
 # Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
+# RUN bundle exec bootsnap precompile app/ lib/
 
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
@@ -43,5 +43,5 @@ USER rails:rails
 ENTRYPOINT ["/app/bin/docker-dev-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 3002
+EXPOSE 3030
 # CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3030"]

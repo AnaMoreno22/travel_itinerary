@@ -18,6 +18,16 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;background-color:lightblue;margin:-8px;padding:8px;border-bottom:1px lightgray solid">
+      <h2>Travel planning</h2>
+      <form action="/users/sign_out" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <button type="submit">Logout</button>
+      </form>
+      </div>
+     
+      <%= yield %>
   </body>
 </html>

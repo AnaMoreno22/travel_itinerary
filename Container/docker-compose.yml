@@ -1,0 +1,40 @@
+version: "3"
+services:
+  travel_itinerary:
+    container_name: travel_itinerary
+    image: 172.16.100.105:5000/travel_itinerary:latest
+    environment:
+      RAILS_ENV: development
+      NODE_DB_USER: pguser
+      NODE_DB_PASSWORD: pguserpwd
+      NODE_DB_HOST: postgres
+    build:
+      context: ../../travel_itinerary
+      dockerfile: Dockerfile
+    tty: true
+    command: >
+      rails s -b '0.0.0.0' -p 3030
+    ports:
+      - "3030:3030"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    volumes:
+      - travel_itinerary:/bundle
+      - ../../travel_itinerary:/app
+      - travel_itinerary:/app/assets/builds/tailwind.css
+  postgres:
+    container_name: travel_itinerary_postgres
+    hostname: postgres
+    image: arm64v8/postgres:14-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpwd
+volumes:
+  travel_itinerary: {}
