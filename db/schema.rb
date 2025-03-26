@@ -10,17 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_30_141433) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_08_210245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "table_trips", force: :cascade do |t|
+  create_table "plans", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "date"
+    t.bigint "trip_id"
+    t.string "title"
+    t.float "budget"
+    t.string "hotel"
+    t.text "description"
+    t.index ["trip_id"], name: "index_plans_on_trip_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "title"
     t.datetime "date"
-    t.index ["user_id"], name: "index_table_trips_on_user_id"
+    t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

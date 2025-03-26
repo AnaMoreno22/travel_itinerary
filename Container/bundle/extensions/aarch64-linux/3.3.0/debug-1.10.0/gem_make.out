@@ -1,0 +1,19 @@
+current directory: /usr/local/bundle/gems/debug-1.10.0/ext/debug
+/usr/local/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /usr/local/bundle/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-hn6dqu sitelibdir\=./.gem.20250106-1-hn6dqu clean
+
+current directory: /usr/local/bundle/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-hn6dqu sitelibdir\=./.gem.20250106-1-hn6dqu
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /usr/local/bundle/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-hn6dqu sitelibdir\=./.gem.20250106-1-hn6dqu install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20250106-1-hn6dqu/debug
+
+current directory: /usr/local/bundle/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-hn6dqu sitelibdir\=./.gem.20250106-1-hn6dqu clean

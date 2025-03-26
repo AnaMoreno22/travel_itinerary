@@ -1,0 +1,53 @@
+<div>
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <h1>Trips planned</h1>
+    <button onclick="window.location.href='<%= request.path %>?show_modal=true'" style="height: 21px">
+      Add trip
+    </button>
+  </div>
+</div>
+<div>
+  <table style="width:100%;table-layout:fixed">
+    <thead style="background-color:lightgray; text-align:left">
+      <tr>
+        <th class="py-2 pl-4">Title </th>
+        <th> Date </th>
+        <th class="w-20"> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @trips.present? %>
+        <% @trips.each_with_index do |trip, index| %>
+          <% if trip.title.present? %>
+            <tr style=<%= index % 2 == 0 && "background-color:lightgray;" %>>
+              <td style="padding-left:4"><%= link_to trip.title, trip  %></td>
+              <td><%= trip.date.present? ? trip.date.strftime(t('date.formats.default')) : '--' %></td>
+              <td style="text-align:end"> <%= link_to 'Delete', trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }  %> </td>
+              </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <% if params[:show_modal] == "true" %>
+    <div class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3); display: flex; justify-content: center; align-items: center;">
+      <div class="modal-content" style="background-color: white; padding: 20px; width:400px; height:200px; border-radius:15px">
+        <div>
+        <h2 style="margin:0px; margin-top:5px; padding-bottom:20px" >New Trip</h2>
+        <form action="/trips" method="post" style="display: inline">
+          <div style="height: 120px;">
+            <label for="title">Title</label><br>
+            <input style="width:100%;box-sizing: border-box;margin-bottom:10px;" name="title" title="Title" /><br>
+            <label  for="date">Date</label><br>
+              <input style="width:100%;box-sizing: border-box;" type="date" name="date" title="Date" />
+          </div> 
+          <div style="text-align:end">
+            <button type="submit">Create</button>
+            <button onclick="window.location.href='/'">Cancel</button>
+          </div> 
+          </form>
+        </div> 
+      </div>
+    </div>
+  <% end %>
+</div>

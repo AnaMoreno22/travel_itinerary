@@ -21,9 +21,10 @@ services:
     depends_on:
       - postgres
     volumes:
-      - travel_itinerary:/bundle
+      - ./travel_itinerary:/bundle
       - ../../travel_itinerary:/app
       - travel_itinerary:/app/assets/builds/tailwind.css
+      - ./bundle:/usr/local/bundle
   postgres:
     container_name: travel_itinerary_postgres
     hostname: postgres

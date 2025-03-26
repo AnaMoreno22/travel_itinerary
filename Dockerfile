@@ -24,7 +24,7 @@ ENV RAILS_ENV="development" \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile ./
 RUN bundle install
 # RUN gem install foreman
 

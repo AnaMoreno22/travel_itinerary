@@ -8,6 +8,7 @@ gem "sprockets-rails"
 
 gem 'devise'
 gem "pg"
+gem 'rack', '2.2.4'
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 gem "importmap-rails"

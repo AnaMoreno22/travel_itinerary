@@ -1,0 +1,18 @@
+<% if params[:show_modal] == "true" %>
+  <div class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
+    <div class="modal-content" style="background-color: white; padding: 20px;">
+      <div>
+      <h1>New Trip</h1>
+        <form action="/trips" method="post" style="display: inline">
+          <input name="title" title="Title" />
+          <input type="date" name="date" title="Date" />
+          <button type="submit">Create</button>
+          <button onclick="history.back()">Cancel</button>
+        </form>
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<a href="<%= request.path %>?show_modal=true">Open Modal</a>
+

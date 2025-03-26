@@ -1,0 +1,18 @@
+current directory: /usr/local/bundle/gems/bindex-0.8.1/ext/skiptrace
+/usr/local/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /usr/local/bundle/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-jucce0 sitelibdir\=./.gem.20250106-1-jucce0 clean
+
+current directory: /usr/local/bundle/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-jucce0 sitelibdir\=./.gem.20250106-1-jucce0
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /usr/local/bundle/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-jucce0 sitelibdir\=./.gem.20250106-1-jucce0 install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20250106-1-jucce0/skiptrace/internal
+
+current directory: /usr/local/bundle/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250106-1-jucce0 sitelibdir\=./.gem.20250106-1-jucce0 clean
