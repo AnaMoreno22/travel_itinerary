@@ -1,7 +1,7 @@
 <div>
   <div style="display: flex; justify-content: space-between; align-items: center">
     <h1>Trips planned</h1>
-    <button onclick="window.location.href='<%= request.path %>?show_modal=true'" style="height: 21px">
+    <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer; " onclick="window.location.href='<%= request.path %>?show_modal=true'" style="height: 21px">
       Add trip
     </button>
   </div>
@@ -22,7 +22,7 @@
             <tr style=<%= index % 2 == 0 && "background-color:lightgray;" %>>
               <td style="padding-left:4"><%= link_to trip.title, trip  %></td>
               <td><%= trip.date.present? ? trip.date.strftime(t('date.formats.default')) : '--' %></td>
-              <td style="text-align:end"> <%= link_to 'Delete', trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }  %> </td>
+              <td style="text-align:end"> <%= link_to 'Delete', trip_path(trip), data: { confirm: "Are you sure?" }, method: :delete  %> </td>
               </tr>
           <% end %>
         <% end %>
@@ -42,8 +42,8 @@
               <input style="width:100%;box-sizing: border-box;" type="date" name="date" title="Date" />
           </div> 
           <div style="text-align:end">
-            <button type="submit">Create</button>
-            <button onclick="window.location.href='/'">Cancel</button>
+            <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px ;cursor:pointer" onclick="window.location.href='/'">Cancel</button>
+            <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px ;cursor:pointer" type="submit">Create</button>
           </div> 
           </form>
         </div> 

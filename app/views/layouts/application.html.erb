@@ -15,12 +15,13 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag  "turbo" ,type: "module" %>
   </head>
 
   <body>
 
-    <div style="display:flex;justify-content:space-between;align-items:center;background-color:lightblue;margin:-8px;padding:8px;border-bottom:1px lightgray solid">
-      <h2>Travel planning</h2>
+    <div style="display:flex;justify-content:space-between;align-items:center;background-color:#9fcee9;margin:-8px;padding:8px;border-bottom:1px lightgray solid">
+      <h2 style="color:white">Travel planning</h2>
       <form action="/users/sign_out" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

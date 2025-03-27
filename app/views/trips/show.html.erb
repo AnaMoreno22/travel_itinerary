@@ -2,10 +2,10 @@
   <div style="display: flex; justify-content: space-between; align-items: center">
     <h1> <%= @trip.title %> </h1>
     <div>
-    <button onclick="history.back()">Go Back</button>
-      <button onclick="window.location.href='/plans/new'" style="height: 21px">
-        Add Item
-      </button>
+    <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " onclick="window.location.href='/'">Go Back</button>
+    <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " onclick="window.location.href='<%= request.path %>?show_modal=true'" style="height: 21px">
+      Add plan
+    </button>
     </div>
   
   </div>
@@ -23,7 +23,7 @@
   <% @plans.each_with_index do |plan, index| %>
     <% if plan.title.present? %>
     <tr style=<%= index % 2 == 0 && "background-color:lightgray;" %>>
-      <td style="padding-left:4"><%= link_to plan.title, plan  %></td>
+      <td style="padding-left:4"><%= link_to index, plan  %></td>
      
       <td><%= plan.date.present? ? plan.date.strftime(t('date.formats.default')) : '--' %></td>
     </tr>
@@ -32,4 +32,32 @@
 <% end %>
   </tbody>
 </table>
+<% if params[:show_modal] == "true" %>
+<div class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3); display: flex; justify-content: center; align-items: center;">
+  <div class="modal-content" style="background-color: white; padding: 20px; width:400px; height:390px; border-radius:15px">
+    <div>
+    <h2 style="margin:0px; margin-top:5px; padding-bottom:20px" >New Plan</h2>
+    <form action="/plans" method="post" style="display: inline">
+    <div style="height: 315px;">
+        <label for="title">Title</label><br>
+        <input style="width:100%;box-sizing: border-box;margin-bottom:10px;" name="title" title="Title" /><br>
+        <label  for="date">Date</label><br>
+        <input style="width:100%;box-sizing: border-box;margin-bottom:10px" type="date" name="date" title="Date" />
+        <label  for="hotel">Hotel</label><br>
+        <input style="width:100%;box-sizing: border-box;margin-bottom:10px" name="hotel" title="hotel" />
+        <label  for="budget">Budget</label><br>
+        <input style="width:100%;box-sizing: border-box;margin-bottom:10px" type="number" name="budget" title="budget" />
+        <label  for="description">Description</label><br>
+        <textarea style="resize: none;width:100%;box-sizing: border-box; max-height:100px" rows="4" name="description" title="description"> </textarea>
+        <input style="display:none"  name="trip_id" value="<%= @trip.id %>" />
+      </div> 
+      <div style="text-align:end">
+        <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " onclick="history.back()">Cancel</button>
+        <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " type="submit">Create</button>
+      </div> 
+  </form>
+    </div> 
+  </div>
+</div>
+<% end %>
 </div>

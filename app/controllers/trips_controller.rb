@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_trips, only: %i[index]
-  before_action :set_trip, only: %i[show]
+  before_action :set_trip, only: %i[show destroy]
   
   def index
     # raise @trips.inspect
@@ -10,6 +10,12 @@ class TripsController < ApplicationController
 
   def show
     @plans = Plan.where(trip_id: @trip.id)
+  end
+
+  def destroy
+    raise 
+    @trip.destroy
+    render body: nil
   end
 
   def create
