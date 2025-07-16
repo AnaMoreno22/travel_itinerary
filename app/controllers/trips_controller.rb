@@ -13,13 +13,11 @@ class TripsController < ApplicationController
   end
 
   def destroy
-    raise 
     @trip.destroy
-    render body: nil
+    render body: @trips
   end
 
   def create
-
     @trip = Trip.new(trip_params)
     # raise @trip.inspect
     respond_to do |format|

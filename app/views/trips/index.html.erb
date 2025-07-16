@@ -22,8 +22,9 @@
             <tr style=<%= index % 2 == 0 && "background-color:lightgray;" %>>
               <td style="padding-left:4"><%= link_to trip.title, trip  %></td>
               <td><%= trip.date.present? ? trip.date.strftime(t('date.formats.default')) : '--' %></td>
-              <td style="text-align:end"> <%= link_to 'Delete', trip_path(trip), data: { confirm: "Are you sure?" }, method: :delete  %> </td>
+              <td style="text-align:end"><%= button_to 'Delete', trip_path(trip), method: :delete,  data: { confirm: "Are you sure?" } %> </td>
               </tr>
+              
           <% end %>
         <% end %>
       <% end %>
