@@ -8,6 +8,7 @@
 /.bundle
 /vendor/bundle
 /vendor/cache
+/Container/bundle
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
