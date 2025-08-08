@@ -13,7 +13,7 @@ services:
       dockerfile: Dockerfile
     tty: true
     command: >
-      rails s -b '0.0.0.0' -p 3030
+      bin/dev
     ports:
       - "3030:3030"
     links:

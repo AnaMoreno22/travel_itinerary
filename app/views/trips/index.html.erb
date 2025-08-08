@@ -1,14 +1,14 @@
-<div>
-  <div style="display: flex; justify-content: space-between; align-items: center">
+<div class="p-2">
+  <div class="flex justify-between items-center">
     <h1>Trips planned</h1>
-    <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer; " onclick="window.location.href='<%= request.path %>?show_modal=true'" style="height: 21px">
+    <button class="bg-blue-100 color-black rounded-md border-none h-7 w-20 text-sm cursor-pointer"  onclick="window.location.href='<%= request.path %>?show_modal=true'" >
       Add trip
     </button>
   </div>
 </div>
 <div>
-  <table style="width:100%;table-layout:fixed">
-    <thead style="background-color:lightgray; text-align:left">
+  <table class="w-full table-fixed">
+    <thead class="text-left bg-gray-100 ">
       <tr>
         <th class="py-2 pl-4">Title </th>
         <th> Date </th>
@@ -18,33 +18,30 @@
     <tbody>
       <% if @trips.present? %>
         <% @trips.each_with_index do |trip, index| %>
-          <% if trip.title.present? %>
-            <tr style=<%= index % 2 == 0 && "background-color:lightgray;" %>>
-              <td style="padding-left:4"><%= link_to trip.title, trip  %></td>
-              <td><%= trip.date.present? ? trip.date.strftime(t('date.formats.default')) : '--' %></td>
-              <td style="text-align:end"><%= button_to 'Delete', trip_path(trip), method: :delete,  data: { confirm: "Are you sure?" } %> </td>
-              </tr>
-              
-          <% end %>
+          <tr class=<%= index % 2 != 0 && "bg-gray-50 " %>>
+            <td class="pl-4"><%= link_to trip.title, trip  %></td>
+            <td><%= trip.date.present? ? trip.date.strftime(t('date.formats.default')) : '--' %></td>
+            <td class: "rounded-lg py-3 px-5 my-1 inline-block font-medium"><%= button_to 'Delete', trip_path(trip), method: :delete,  data: { confirm: "Are you sure?" } %> </td>
+            </tr>
         <% end %>
       <% end %>
     </tbody>
   </table>
   <% if params[:show_modal] == "true" %>
-    <div class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3); display: flex; justify-content: center; align-items: center;">
-      <div class="modal-content" style="background-color: white; padding: 20px; width:400px; height:200px; border-radius:15px">
+    <div id="modal-overlay" class="fixed top-0 left-0 w-full h-full bg-black/30 flex justify-center items-center" >
+      <div id="modal-content" class="bg-white p-5 w-120 h-60 rounded-[15px]">
         <div>
-        <h2 style="margin:0px; margin-top:5px; padding-bottom:20px" >New Trip</h2>
+        <h2 class="m-0 mt-[5px] pb-5" >New Trip</h2>
         <form action="/trips" method="post" style="display: inline">
-          <div style="height: 120px;">
+          <div class="h-30">
             <label for="title">Title</label><br>
-            <input style="width:100%;box-sizing: border-box;margin-bottom:10px;" name="title" title="Title" /><br>
+            <input class="w-full box-border mb-2.5" name="title" title="Title" /><br>
             <label  for="date">Date</label><br>
-              <input style="width:100%;box-sizing: border-box;" type="date" name="date" title="Date" />
+              <input class="w-full box-border" type="date" name="date" title="Date" />
           </div> 
-          <div style="text-align:end">
-            <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px ;cursor:pointer" onclick="window.location.href='/'">Cancel</button>
-            <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px ;cursor:pointer" type="submit">Create</button>
+          <div class="text-right">
+            <button class="bg-[#9fcee9] rounded-[5px] text-white border-none h-7 w-20 text-sm cursor-pointer" onclick="window.location.href='/'">Cancel</button>
+            <button class="bg-[#9fcee9] rounded-[5px] text-white border-none h-7 w-20 text-sm cursor-pointer" type="submit">Create</button>
           </div> 
           </form>
         </div> 

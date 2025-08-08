@@ -4,7 +4,6 @@ class TripsController < ApplicationController
   before_action :set_trip, only: %i[show destroy]
   
   def index
-    # raise @trips.inspect
   end
 
 
@@ -40,7 +39,7 @@ class TripsController < ApplicationController
   private
 
   def set_trips
-    @trips = Trip.where(user_id: current_user.id)
+    @trips = Trip.where(user_id: current_user.id).where("title != ?", "")
   end
 
   def set_trip
