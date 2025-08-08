@@ -4,7 +4,8 @@
       <div>
       <h1>New Trip</h1>
         <form action="/trips" method="post" style="display: inline">
-          <input name="title" title="Title" />
+          <input class="box-border" name="title" title="Title" />
+          <input type="text" name="title" title="Title"  class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-500 shadow-sm" placeholder="Enter your text here">
           <input type="date" name="date" title="Date" />
           <button type="submit">Create</button>
           <button onclick="history.back()">Cancel</button>

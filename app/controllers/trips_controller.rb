@@ -8,7 +8,7 @@ class TripsController < ApplicationController
 
 
   def show
-    @plans = Plan.where(trip_id: @trip.id)
+    @plans = Plan.where(trip_id: @trip.id).where("title != ?", "")
   end
 
   def destroy

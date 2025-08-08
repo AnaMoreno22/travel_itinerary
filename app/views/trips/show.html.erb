@@ -1,20 +1,22 @@
 <div>
-  <div style="display: flex; justify-content: space-between; align-items: center">
+  <div class="flex justify-between items-center">
     <h1> <%= @trip.title %> </h1>
-    <div>
-    <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " onclick="window.location.href='/'">Go Back</button>
-    <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " onclick="window.location.href='<%= request.path %>?show_modal=true'" style="height: 21px">
+    <div class="m-2">
+    <button class="bg-blue-100 color-black rounded-md border-none h-7 w-20 text-sm cursor-pointer" onclick="window.location.href='/'">Go Back</button>
+    <button class="bg-blue-100 color-black rounded-md border-none h-7 w-20 text-sm cursor-pointer"  onclick="window.location.href='<%= request.path %>?show_modal=true'">
       Add plan
     </button>
     </div>
   
   </div>
-  <table style="width:100%;table-layout:fixed">
-  <thead style="background-color:lightgray; text-align:left">
+  <table class="w-full table-fixed">
+  <thead class="text-left bg-gray-100 ">
     <tr>
       <th class="py-2 pl-4">Title </th>
       <th> Date </th>
-    
+      <th> Hotel </th>
+      <th> Budget </th>
+      <th> Description </th>
       <th class="w-20"> </th>
     </tr>
   </thead>
@@ -22,42 +24,48 @@
   <% if @plans.present? %>
   <% @plans.each_with_index do |plan, index| %>
     <% if plan.title.present? %>
-    <tr style=<%= index % 2 == 0 && "background-color:lightgray;" %>>
-      <td style="padding-left:4"><%= link_to index, plan  %></td>
-     
+     <tr class=<%= index % 2 != 0 && "bg-gray-50 " %>>
+      <td class="pl-4"><%= link_to plan.title, plan  %></td>
       <td><%= plan.date.present? ? plan.date.strftime(t('date.formats.default')) : '--' %></td>
-    </tr>
+      <td><%= plan.hotel %></td>
+      <td><%= plan.budget %></td>
+      <td><%= plan.description %></td>
+      <td class: "rounded-lg py-3 px-5 my-1 inline-block font-medium"><%= button_to 'Delete', plan_path(plan), method: :delete,  data: { confirm: "Are you sure?" } %> </td>
+      </tr>
      <% end %>
   <% end %>
 <% end %>
   </tbody>
 </table>
 <% if params[:show_modal] == "true" %>
-<div class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3); display: flex; justify-content: center; align-items: center;">
-  <div class="modal-content" style="background-color: white; padding: 20px; width:400px; height:390px; border-radius:15px">
+<div id="modal-overlay" class="fixed top-0 left-0 w-full h-full bg-black/30 flex justify-center items-center" >
+  <div id="modal-content" class="bg-white p-5 w-120 h-135 rounded-[15px]">
     <div>
-    <h2 style="margin:0px; margin-top:5px; padding-bottom:20px" >New Plan</h2>
+  
+    <h2 class="m-0 mt-[5px] pb-5" >New Trip</h2>
     <form action="/plans" method="post" style="display: inline">
-    <div style="height: 315px;">
+    <div class="h-105">
         <label for="title">Title</label><br>
-        <input style="width:100%;box-sizing: border-box;margin-bottom:10px;" name="title" title="Title" /><br>
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-500 shadow-sm" name="title" title="Title" /><br>
         <label  for="date">Date</label><br>
-        <input style="width:100%;box-sizing: border-box;margin-bottom:10px" type="date" name="date" title="Date" />
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-500 shadow-sm" type="date" name="date" title="Date" />
         <label  for="hotel">Hotel</label><br>
-        <input style="width:100%;box-sizing: border-box;margin-bottom:10px" name="hotel" title="hotel" />
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-500 shadow-sm" name="hotel" title="hotel" />
         <label  for="budget">Budget</label><br>
-        <input style="width:100%;box-sizing: border-box;margin-bottom:10px" type="number" name="budget" title="budget" />
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-500 shadow-sm" type="number" name="budget" title="budget" />
         <label  for="description">Description</label><br>
-        <textarea style="resize: none;width:100%;box-sizing: border-box; max-height:100px" rows="4" name="description" title="description"> </textarea>
+        <textarea  class="resize-none w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-500 shadow-sm" rows="4" name="description" title="description"> </textarea>
         <input style="display:none"  name="trip_id" value="<%= @trip.id %>" />
       </div> 
-      <div style="text-align:end">
-        <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " onclick="history.back()">Cancel</button>
-        <button style="background-color:#9fcee9;border-radius:5px;color:white;border:none;height:28px;font-size:14px;cursor:pointer " type="submit">Create</button>
-      </div> 
+      <div class="text-right">
+      <button class="bg-[#9fcee9] rounded-[5px] text-white border-none h-7 w-20 text-sm cursor-pointer" onclick="history.back()">Cancel</button>
+      <button class="bg-[#9fcee9] rounded-[5px] text-white border-none h-7 w-20 text-sm cursor-pointer" type="submit">Create</button>
+    </div> 
+   
   </form>
     </div> 
   </div>
 </div>
 <% end %>
+
 </div>
