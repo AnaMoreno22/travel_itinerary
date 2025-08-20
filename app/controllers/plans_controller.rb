@@ -1,9 +1,10 @@
 class PlansController < ApplicationController
   before_action :authenticate_user!
   before_action :set_trips, only: %i[index]
-  before_action :set_trip,only: %i[create]
+  before_action :set_trip, only: %i[create]
+  before_action :set_plan, only: %i[destroy]
+  
   def index
-    # raise @trips.inspect
   end
 
 
@@ -15,7 +16,6 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         format.html { redirect_to @trip, notice: "Sucesso" }
-        # format.json { render :show, status: :created, location: @plan }
       else
         format.html { render [], status: :unprocessable_entity }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
@@ -26,9 +26,10 @@ class PlansController < ApplicationController
   def new
   end
 
-  def show_create
+  def destroy
+    @plan.destroy
+    render body: @plans
   end
-
   private
 
   def set_trips
@@ -37,6 +38,10 @@ class PlansController < ApplicationController
 
   def set_trip
     @trip = Trip.find(params[:trip_id])
+  end
+
+  def set_plan
+    @plan = Plan.find(params[:id])
   end
 
   def plans_params

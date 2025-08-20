@@ -13,8 +13,8 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="/assets/tailwind.css">
+    
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag  "turbo" ,type: "module" %>
   </head>
@@ -22,7 +22,7 @@
   <body>
 
     <div class="bg-blue-900 flex justify-between items-center p-2 border-b border-solid" >
-      <h2 class="text-white">Travel planning</h2>
+      <h2 class="text-2xl text-blue-100">Travel planning</h2>
       <form action="/users/sign_out" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
