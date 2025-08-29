@@ -12,7 +12,7 @@
       <tr>
         <th class="py-2 pl-4">Title </th>
         <th> Date </th>
-        <th class="w-20"> </th>
+        <th class="w-35"> </th>
       </tr>
     </thead>
     <tbody>
@@ -21,8 +21,11 @@
           <tr id="trip-<%= trip.id %>" class=<%= index % 2 != 0 && "bg-gray-50 " %>>
             <td class="pl-4"><%= link_to trip.title, trip  %></td>
             <td><%= trip.date.present? ? trip.date.strftime(t('date.formats.default')) : '--' %></td>
-            <td class: "rounded-lg py-3 px-5 my-1 inline-block font-medium">
-            <button onclick="removeTrip(<%= trip.id  %>)" class="rounded-lg py-2 px-5 my-1 inline-block font-medium cursor-pointer">
+            <td class="flex items-center justify-end mr-2">
+            <button onclick="editTrip({id: <%= trip.id %>, title: '<%=  trip.title  %>', date: '<%=  trip.date  %>'})" class="rounded-lg py-2 px-1 my-1 inline-block font-medium cursor-pointer">
+            <%= image_tag("/images/editPencil.svg") %>
+           </button>
+            <button onclick="removeTrip(<%= trip.id  %>)" class="rounded-lg py-2 px-1 my-1 inline-block font-medium cursor-pointer">
            <%=  image_tag("/images/trash.svg")  %>
           </button>
              </td>
@@ -40,9 +43,28 @@
 
 <script>
 
+  function editTrip(trip) {
+    const modal = document.getElementById('modal_create_trip');
+    modal.classList.remove('hidden');
+    modal.dataset.id = trip.id;
+    document.getElementById('modal-content').querySelector('h2').textContent = 'Update Trip';
+    document.getElementById('trip_title').value = trip.title;
+    document.getElementById('trip_method').value = 'PUT';
+    if (trip.date) {
+      const dateObject = new Date(trip.date);
+      const formattedDate = dateObject.toISOString().slice(0, 10);
+      document.getElementById('trip_date').value = formattedDate;
+    }
+  }
+
   function openModal() {
-    const modal = document.getElementById('modal_create_trip')
-    modal && modal.classList.remove('hidden')
+    const modal = document.getElementById('modal_create_trip');
+    modal.classList.remove('hidden');
+    modal.dataset.id = '';
+    document.getElementById('modal-content').querySelector('h2').textContent = 'New Trip';
+    document.getElementById('trip_title').value = '';
+    document.getElementById('trip_date').value = '';
+    document.getElementById('trip_method').value = 'POST';
   }
 
   function removeTrip(tripId) {

@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_trips, only: %i[index]
-  before_action :set_trip, only: %i[show destroy]
+  before_action :set_trip, only: %i[show destroy update]
   
   def index
   end
@@ -14,6 +14,14 @@ class TripsController < ApplicationController
   def destroy
     @trip.destroy
     render body: @trips
+  end
+
+  def update
+    if @trip.update(trip_params)
+      render json: {trip: @trip}, status: 200
+    else
+      render json: { errors: @trip.errors }, status: 422
+    end
   end
 
   def create
